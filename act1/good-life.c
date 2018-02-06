@@ -52,7 +52,7 @@
 				  ++neighbors;
 			   if(neighbors == 2 || neighbors == 3)
 			   {
-				  life[row][col] == '*';
+				  life[row][col] = '*';
 			   }
 			}
 		 }
@@ -88,7 +88,7 @@
 				  neighbors++;
 			   if(neighbors == 3)
 			   {
-			   	life[row][col] == '*';
+			   	life[row][col] = '*';
 			   }
 			}
 		 }
@@ -98,7 +98,7 @@
    }
 	
 	void deathRule(char life[][20], int x, int y)
-   {
+   {	
 	  int row, col;
 	  int neighbors = 0;
 	  for(row = 1; row<19; row++)
@@ -125,7 +125,7 @@
 				  neighbors++;
 			   if(neighbors < 2 || neighbors > 4)
 			   {
-				  life[row][col] == ' ';
+				  life[row][col] = ' ';
 			   }
 			}
 		 }
@@ -157,7 +157,7 @@ int main(void)
 			row %= 20;
 			col = rand();
 			col %= 20;
-			life[row][col] == '*';
+			life[row][col] = '*';
 		 }
 		 
 		 for(row = 0; row<20; row++)
@@ -165,7 +165,7 @@ int main(void)
 			for(col = 0; col<20; col++)
 			{
 			   if(life[row][col] != '*')
-			   	life[row][col] == ' ';
+			   	life[row][col] = ' ';
 			}
 		 }
 			  
