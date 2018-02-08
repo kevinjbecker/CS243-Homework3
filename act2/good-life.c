@@ -21,8 +21,6 @@
 
 #include <stdio.h> // printf, scanf
 #include <stdlib.h> // EXIT_SUCCESS, srand, rand
-#define TOT_GENS 100
-#define GRID_SIZE 20
 
 ///
 /// Function: startLife
@@ -65,7 +63,7 @@ void generateLifeBoard(short numOrgs, int size, char board[][size])
     // NOTE: Because the seed is 31 (and always 31) the board will always generate the same
     srand(31);
 
-    // sets every cell to be a dead cell to begin, we'll fill in living ones later
+    // sets every cell to be a dead cell to begin, we'll fill in living ones later.
     // (removes the conditional required for doing this in opposite order)
     for (int row = 0; row < size; ++row)
         for (int col = 0; col < size; ++col)
@@ -73,7 +71,21 @@ void generateLifeBoard(short numOrgs, int size, char board[][size])
 
     // generates our "alive" cells randomized in location
     for (int i = 0; i < numOrgs; ++i)
-        board[rand() % size][rand() % size] = '*';
+    {
+        // a random row and column
+        int row = rand() % size;
+        int col = rand() % size;
+
+        // this conditional guarantees that the number of organisms at the start are
+        // exactly as many as the user wants
+
+        // if the spot is occupied already, we subtract from i so that it remains at the
+        // same value for the next iteration
+        if (board[row][col] == '*')
+            --i;
+        else
+            board[row][col] = '*';
+    }
 }
 
 
@@ -114,7 +126,7 @@ char getNumAliveNeighbors(int row, int col, int size, char board[][size])
     // NE
     if (board[rowN][colE] == '*') ++aliveNeighbors;
     // E
-    if (board[row][colE]  == '*') ++aliveNeighbors;
+    if (board[row][colE] == '*') ++aliveNeighbors;
     // SE
     if (board[rowS][colE] == '*') ++aliveNeighbors;
     // S
@@ -200,7 +212,7 @@ void printBoard(int genNum, int size, char board[][size])
 int main(void)
 {
     // the size of our board (20x20)
-    int size = GRID_SIZE;
+    int size = 20;
 
     // our life ``board''
     char board[size][size];
@@ -211,8 +223,8 @@ int main(void)
     // generates our life board
     generateLifeBoard(numOrgs, size, board);
 
-    // runs our game for TOT_GENS (the total number of generations)
-    for(int gens = 0; gens < TOT_GENS; ++gens)
+    // runs our game
+    for(int gens = 0; gens < 100; ++gens)
     {
         // prints our new board
         printBoard(gens, size, board);
